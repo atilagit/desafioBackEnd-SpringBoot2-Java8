@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.desafiobackend.desafio.entities.Cliente;
 import com.desafiobackend.desafio.repositories.ClienteRepository;
+import com.desafiobackend.desafio.services.exceptions.ExcecaoDeRecursoNaoEncontrado;
 
 @Service
 public class ClienteService {
@@ -21,6 +22,6 @@ public class ClienteService {
 	
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ExcecaoDeRecursoNaoEncontrado(id));
 	}
 }
