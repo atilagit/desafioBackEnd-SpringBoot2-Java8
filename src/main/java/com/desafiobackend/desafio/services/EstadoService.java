@@ -24,4 +24,9 @@ public class EstadoService {
 		Optional<Estado> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ExcecaoDeRecursoNaoEncontrado(id));
 	}
+	
+	public Estado insert(Estado obj) {
+		obj.setId(null);
+		return repository.save(obj);
+	}
 }
