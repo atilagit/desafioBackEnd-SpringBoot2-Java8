@@ -1,46 +1,42 @@
 package com.desafiobackend.desafio.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.desafiobackend.desafio.entities.enums.Sexo;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Cliente implements Serializable{
+public class Cidade implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String nome;
-	private Integer sexo;
-	private Date dataDeNascimento;
-	private Integer idade;
 	
-	//private Cidade cidadeOndeMora;
+	@ManyToOne
+	@JoinColumn(name="estado_id")
+	private Estado estado;
 	
-	public Cliente(){
+	public Cidade() {
 	}
 
-	public Cliente(Long id, String nome, Sexo sexo, Date dataDeNascimento) {
+	public Cidade(Integer id, String nome, Estado estado) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		setSexo(sexo);
-		this.dataDeNascimento = dataDeNascimento;
-		this.idade = getIdade();
+		this.estado = estado;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -52,26 +48,12 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-	public Sexo getSexo() {
-		return Sexo.valueOf(sexo);
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setSexo(Sexo sexo) {
-		if(sexo != null) {
-			this.sexo = sexo.getCode();
-		}
-	}
-
-	public Date getDataDeNascimento() {
-		return dataDeNascimento;
-	}
-
-	public void setDataDeNascimento(Date dataDeNascimento) {
-		this.dataDeNascimento = dataDeNascimento;
-	}
-
-	public Integer getIdade() {
-		return idade;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -90,7 +72,7 @@ public class Cliente implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Cidade other = (Cidade) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -98,4 +80,6 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
+	
+	
 }
