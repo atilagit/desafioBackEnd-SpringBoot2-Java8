@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.desafiobackend.desafio.entities.enums.Sexo;
 
@@ -22,18 +24,21 @@ public class Cliente implements Serializable{
 	private Date dataDeNascimento;
 	private Integer idade;
 	
-	//private Cidade cidadeOndeMora;
+	@ManyToOne
+	@JoinColumn(name="cidade_id")
+	private Cidade cidadeOndeMora;
 	
 	public Cliente(){
 	}
 
-	public Cliente(Long id, String nome, Sexo sexo, Date dataDeNascimento) {
+	public Cliente(Long id, String nome, Sexo sexo, Date dataDeNascimento, Cidade cidadeOndeMora) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		setSexo(sexo);
 		this.dataDeNascimento = dataDeNascimento;
 		this.idade = getIdade();
+		this.cidadeOndeMora = cidadeOndeMora;
 	}
 
 	public Long getId() {
@@ -72,6 +77,14 @@ public class Cliente implements Serializable{
 
 	public Integer getIdade() {
 		return idade;
+	}
+
+	public Cidade getCidadeOndeMora() {
+		return cidadeOndeMora;
+	}
+
+	public void setCidadeOndeMora(Cidade cidadeOndeMora) {
+		this.cidadeOndeMora = cidadeOndeMora;
 	}
 
 	@Override

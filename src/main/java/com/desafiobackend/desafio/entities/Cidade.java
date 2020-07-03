@@ -1,6 +1,8 @@
 package com.desafiobackend.desafio.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cidade implements Serializable{
@@ -21,6 +26,10 @@ public class Cidade implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="estado_id")
 	private Estado estado;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cidadeOndeMora")
+	private List<Cliente> clientes = new ArrayList<>();
 	
 	public Cidade() {
 	}
@@ -56,6 +65,14 @@ public class Cidade implements Serializable{
 		this.estado = estado;
 	}
 
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void add(Cliente cliente) {
+		clientes.add(cliente);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,8 +103,4 @@ public class Cidade implements Serializable{
 			return false;
 		return true;
 	}
-
-	
-	
-	
 }
