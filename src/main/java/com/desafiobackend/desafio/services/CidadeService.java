@@ -32,17 +32,23 @@ public class CidadeService {
 	
 	@Transactional
 	public Cidade insert(Cidade obj) {
-		List<Cidade> listCid = findAll();
-		if(listCid.contains(obj)) {
-			return listCid.get(listCid.indexOf(obj));
+		List<Cidade> list = findAll();
+		if(list.contains(obj)) {
+			return list.get(list.indexOf(obj)); //posteriormente vou lançar uma exceção aqui
 		}
-		List<Estado> listEst = estadoService.findAll();
-		if(listEst.contains(obj.getEstado())) {
-			int index = listEst.indexOf(obj.getEstado());
-			obj.setEstado(listEst.get(index));
+		return repository.save(tratamentoParaInsert(obj));
+	}
+
+	private Cidade tratamentoParaInsert(Cidade obj) {
+		List<Estado> list = estadoService.findAll();
+		obj.setId(null);
+		obj.getEstado().setId(null);
+		if(list.contains(obj.getEstado())) {
+			int index = list.indexOf(obj.getEstado());
+			obj.setEstado(list.get(index));
 		}else {
 			obj.setEstado(estadoService.insert(obj.getEstado()));
 		}
-		return repository.save(obj);
+		return obj;
 	}
 }
