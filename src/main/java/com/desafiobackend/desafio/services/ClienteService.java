@@ -36,4 +36,8 @@ public class ClienteService {
 		obj.setCidadeOndeMora(cidadeService.findById(obj.getCidadeOndeMora().getId()));
 		return repository.save(obj);
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
