@@ -78,6 +78,10 @@ public class Cliente implements Serializable{
 	public Integer getIdade() {
 		return idade;
 	}
+	
+	public void setIdade(Integer idade) {
+		this.idade = idade;
+	}
 
 	public Cidade getCidadeOndeMora() {
 		return cidadeOndeMora;
