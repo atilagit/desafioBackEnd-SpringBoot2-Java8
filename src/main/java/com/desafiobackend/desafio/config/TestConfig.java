@@ -1,8 +1,7 @@
 package com.desafiobackend.desafio.config;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,9 +39,9 @@ public class TestConfig implements CommandLineRunner{
 				
 		estadoRepository.saveAll(Arrays.asList(e1, e2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
-		
-		Cliente c1 = new Cliente(null, "Atila Izac", Sexo.valueOf("MASCULINO"), Date.from(Instant.parse("1993-12-31T00:00:00Z")), cid1);
-		Cliente c2 = new Cliente(null, "Joana Silva", Sexo.valueOf("FEMININO"), Date.from(Instant.parse("1993-12-31T00:00:00Z")), cid3);
+		 
+		Cliente c1 = new Cliente(null, "Atila Izac", Sexo.valueOf("MASCULINO"), LocalDate.parse("1993-12-31"), cid1);
+		Cliente c2 = new Cliente(null, "Joana Silva", Sexo.valueOf("FEMININO"), LocalDate.parse("1993-12-31"), cid3);
 		
 		clienteRepository.saveAll(Arrays.asList(c1,c2));
 	}

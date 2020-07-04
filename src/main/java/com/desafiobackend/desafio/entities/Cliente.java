@@ -1,7 +1,8 @@
 package com.desafiobackend.desafio.entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Cliente implements Serializable{
 	private Long id;
 	private String nome;
 	private Integer sexo;
-	private Date dataDeNascimento;
+	private LocalDate dataDeNascimento;
 	private Integer idade;
 	
 	@ManyToOne
@@ -31,13 +32,13 @@ public class Cliente implements Serializable{
 	public Cliente(){
 	}
 
-	public Cliente(Long id, String nome, Sexo sexo, Date dataDeNascimento, Cidade cidadeOndeMora) {
+	public Cliente(Long id, String nome, Sexo sexo, LocalDate dataDeNascimento, Cidade cidadeOndeMora) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		setSexo(sexo);
 		this.dataDeNascimento = dataDeNascimento;
-		this.idade = getIdade();
+		this.idade = idadeAtual();
 		this.cidadeOndeMora = cidadeOndeMora;
 	}
 
@@ -67,15 +68,16 @@ public class Cliente implements Serializable{
 		}
 	}
 
-	public Date getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
 	public Integer getIdade() {
+		setIdade(idadeAtual());
 		return idade;
 	}
 	
@@ -114,5 +116,13 @@ public class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	private Integer idadeAtual() {
+		LocalDate hj = LocalDate.now();
+		if(dataDeNascimento != null) {
+			return Period.between(dataDeNascimento, hj).getYears();
+		}
+		return null;
 	}
 }
