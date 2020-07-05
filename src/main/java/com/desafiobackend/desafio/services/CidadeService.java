@@ -42,6 +42,10 @@ public class CidadeService {
 	public List<Cidade> consultaPorEstado(String estado){
 		return repository.consultaPorEstado(estado);
 	}
+	
+	public List<Cidade> consultaPorNome(String nome){
+		return repository.findBynomeContaining(nome);
+	}
 
 	private Cidade tratamentoParaInsert(Cidade obj) {
 		List<Estado> list = estadoService.findAll();

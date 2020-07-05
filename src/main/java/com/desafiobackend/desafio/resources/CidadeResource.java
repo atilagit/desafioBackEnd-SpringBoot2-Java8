@@ -42,6 +42,12 @@ public class CidadeResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@GetMapping(value = "/busca-por-nome")
+	public ResponseEntity<List<Cidade>> consultaPorNome(@RequestParam(value="nome", defaultValue="") String nome){
+		List<Cidade> obj = service.consultaPorNome(nome);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Cidade> insert(@RequestBody Cidade obj){
 		obj = service.insert(obj);
