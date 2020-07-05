@@ -38,6 +38,10 @@ public class CidadeService {
 		}
 		return repository.save(tratamentoParaInsert(obj));
 	}
+	
+	public List<Cidade> consultaPorEstado(String estado){
+		return repository.consultaPorEstado(estado);
+	}
 
 	private Cidade tratamentoParaInsert(Cidade obj) {
 		List<Estado> list = estadoService.findAll();

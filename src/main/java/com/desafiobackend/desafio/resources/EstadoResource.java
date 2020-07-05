@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiobackend.desafio.dto.EstadoDTO;
 import com.desafiobackend.desafio.entities.Estado;
 import com.desafiobackend.desafio.services.EstadoService;
 
@@ -27,9 +26,8 @@ public class EstadoResource {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<EstadoDTO> findById(@PathVariable Long id){
+	public ResponseEntity<Estado> findById(@PathVariable Long id){
 		Estado obj = service.findById(id);
-		EstadoDTO objDto = service.estadoToDto(obj);
-		return ResponseEntity.ok().body(objDto);
+		return ResponseEntity.ok().body(obj);
 	}
 }

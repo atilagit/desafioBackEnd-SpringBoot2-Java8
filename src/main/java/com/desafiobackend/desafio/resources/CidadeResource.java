@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,6 +33,12 @@ public class CidadeResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cidade> findById(@PathVariable Long id){
 		Cidade obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/busca")
+	public ResponseEntity<List<Cidade>> consultaPorEstado(@RequestParam(value="estado", defaultValue="") String estado){
+		List<Cidade> obj = service.consultaPorEstado(estado);
 		return ResponseEntity.ok().body(obj);
 	}
 	
