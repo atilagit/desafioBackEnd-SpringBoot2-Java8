@@ -32,6 +32,10 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ExcecaoDeRecursoNaoEncontrado(id));
 	}
 	
+	public List<Cliente> consultaPorNome(String nome){
+		return repository.findBynomeContaining(nome);
+	}
+	
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
