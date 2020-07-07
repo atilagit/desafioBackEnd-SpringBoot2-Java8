@@ -11,9 +11,9 @@ import com.desafiobackend.desafio.entities.Cidade;
 
 public interface CidadeRepository extends JpaRepository<Cidade, Long>{
 
-	@Query("SELECT obj FROM Cidade obj WHERE obj.estado.nome LIKE %:estado%")
+	@Query("SELECT obj FROM Cidade obj WHERE UPPER(obj.estado.nome) LIKE UPPER(concat('%', :estado,'%'))")
 	List<Cidade> consultaPorEstado(@Param("estado") String estado);
 	
 	@Transactional(readOnly = true)
-	List<Cidade> findBynomeContaining(String nome);
+	List<Cidade> findBynomeContainingIgnoreCase(String nome);
 }

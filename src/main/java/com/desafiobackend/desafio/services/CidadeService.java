@@ -44,7 +44,7 @@ public class CidadeService {
 	}
 	
 	public List<Cidade> consultaPorNome(String nome){
-		return repository.findBynomeContaining(nome);
+		return repository.findBynomeContainingIgnoreCase(nome);
 	}
 
 	private Cidade tratamentoParaInsert(Cidade obj) {

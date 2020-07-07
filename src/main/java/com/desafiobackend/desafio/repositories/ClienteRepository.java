@@ -10,5 +10,5 @@ import com.desafiobackend.desafio.entities.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	@Transactional(readOnly = true)
-	List<Cliente> findBynomeContaining(String nome);
+	List<Cliente> findBynomeContainingIgnoreCase(String nome);
 }

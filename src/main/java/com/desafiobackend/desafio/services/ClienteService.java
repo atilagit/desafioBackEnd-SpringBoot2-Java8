@@ -33,7 +33,7 @@ public class ClienteService {
 	}
 	
 	public List<Cliente> consultaPorNome(String nome){
-		return repository.findBynomeContaining(nome);
+		return repository.findBynomeContainingIgnoreCase(nome);
 	}
 	
 	@Transactional
