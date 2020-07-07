@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.desafiobackend.desafio.entities.Cidade;
 import com.desafiobackend.desafio.entities.Estado;
 import com.desafiobackend.desafio.repositories.CidadeRepository;
+import com.desafiobackend.desafio.services.exceptions.ExcecaoDeDuplicidadeDeRecurso;
 import com.desafiobackend.desafio.services.exceptions.ExcecaoDeRecursoNaoEncontrado;
 
 @Service
@@ -34,7 +35,8 @@ public class CidadeService {
 	public Cidade insert(Cidade obj) {
 		List<Cidade> list = repository.findBynome(obj.getNome());
 		if(list.contains(obj)) {
-			return list.get(list.indexOf(obj)); //posteriormente talvez eu lance uma exceção aqui
+			obj = list.get(list.indexOf(obj));
+			throw new ExcecaoDeDuplicidadeDeRecurso(obj.toString()); //posteriormente talvez eu lance uma exceção aqui
 		}
 		return repository.save(tratamentoParaInsert(obj));
 	}

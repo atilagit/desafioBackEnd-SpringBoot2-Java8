@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.desafiobackend.desafio.services.exceptions.ExcecaoDeDuplicidadeDeRecurso;
 import com.desafiobackend.desafio.services.exceptions.ExcecaoDeRecursoNaoEncontrado;
 
 @ControllerAdvice
@@ -18,6 +19,14 @@ public class TratadorDeExcecoesDeRecurso {
 	public ResponseEntity<PadraoErro> recursoNaoEncontrado(ExcecaoDeRecursoNaoEncontrado e, HttpServletRequest request){
 		String error = "Recurso não encontrado";
 		HttpStatus status = HttpStatus.NOT_FOUND;
+		PadraoErro err = new PadraoErro(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(ExcecaoDeDuplicidadeDeRecurso.class)
+	public ResponseEntity<PadraoErro> recursoDuplicado(ExcecaoDeDuplicidadeDeRecurso e, HttpServletRequest request){
+		String error = "Não Aceito. Duplicidade de recurso";
+		HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
 		PadraoErro err = new PadraoErro(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
