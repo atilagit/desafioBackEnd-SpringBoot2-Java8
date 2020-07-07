@@ -33,10 +33,10 @@ public class CidadeService {
 	
 	@Transactional
 	public Cidade insert(Cidade obj) {
-		List<Cidade> list = repository.findBynome(obj.getNome());
+		List<Cidade> list = repository.findBynomeIgnoreCase(obj.getNome());
 		if(list.contains(obj)) {
 			obj = list.get(list.indexOf(obj));
-			throw new ExcecaoDeDuplicidadeDeRecurso(obj.toString()); //posteriormente talvez eu lance uma exceção aqui
+			throw new ExcecaoDeDuplicidadeDeRecurso(obj.toString());
 		}
 		return repository.save(tratamentoParaInsert(obj));
 	}
@@ -53,7 +53,7 @@ public class CidadeService {
 		obj.setId(null);
 		obj.getEstado().setId(null);
 		Estado entity = estadoService.consultaPorNome(obj.getEstado().getNome());
-		if(obj.getEstado().getNome().equals(entity.getNome())) {
+		if(entity != null) {
 			obj.setEstado(entity);
 		}else {
 			obj.setEstado(estadoService.insert(obj.getEstado()));

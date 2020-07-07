@@ -18,5 +18,5 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long>{
 	List<Cidade> findBynomeContainingIgnoreCase(String nome);
 	
 	@Transactional(readOnly = true)
-	List<Cidade> findBynome(String nome);
+	List<Cidade> findBynomeIgnoreCase(String nome);
 }

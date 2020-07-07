@@ -99,7 +99,7 @@ public class Cidade implements Serializable{
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!nome.toUpperCase().equals(other.nome.toUpperCase()))
 			return false;
 		return true;
 	}
