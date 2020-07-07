@@ -36,7 +36,7 @@ public class CidadeResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping(value = "/busca")
+	@GetMapping(value = "/busca-por-estado")
 	public ResponseEntity<List<Cidade>> consultaPorEstado(@RequestParam(value="estado", defaultValue="") String estado){
 		List<Cidade> obj = service.consultaPorEstado(estado);
 		return ResponseEntity.ok().body(obj);

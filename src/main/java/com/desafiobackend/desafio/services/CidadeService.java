@@ -32,9 +32,9 @@ public class CidadeService {
 	
 	@Transactional
 	public Cidade insert(Cidade obj) {
-		List<Cidade> list = findAll();
+		List<Cidade> list = repository.findBynome(obj.getNome());
 		if(list.contains(obj)) {
-			return list.get(list.indexOf(obj)); //posteriormente vou lançar uma exceção aqui
+			return list.get(list.indexOf(obj)); //posteriormente talvez eu lance uma exceção aqui
 		}
 		return repository.save(tratamentoParaInsert(obj));
 	}
@@ -48,12 +48,11 @@ public class CidadeService {
 	}
 
 	private Cidade tratamentoParaInsert(Cidade obj) {
-		List<Estado> list = estadoService.findAll();
 		obj.setId(null);
 		obj.getEstado().setId(null);
-		if(list.contains(obj.getEstado())) {
-			int index = list.indexOf(obj.getEstado());
-			obj.setEstado(list.get(index));
+		Estado entity = estadoService.consultaPorNome(obj.getEstado().getNome());
+		if(obj.getEstado().getNome().equals(entity.getNome())) {
+			obj.setEstado(entity);
 		}else {
 			obj.setEstado(estadoService.insert(obj.getEstado()));
 		}

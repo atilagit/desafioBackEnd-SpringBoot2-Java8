@@ -29,4 +29,8 @@ public class EstadoService {
 		obj.setId(null);
 		return repository.save(obj);
 	}
+	
+	public Estado consultaPorNome(String nome){
+		return repository.findBynomeIgnoreCase(nome);
+	}
 }
